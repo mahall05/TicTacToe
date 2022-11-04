@@ -1,12 +1,13 @@
 public class GameBoard{
-    private Move[][] board;
+    private static String[] players = {" ", Color.RED+'X'+Color.RESET, Color.GREEN+'O'+Color.RESET};
+    private String[][] board;
 
     public GameBoard(int size){
-        board = new Move[size][size];
+        board = new String[size][size];
 
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[i].length; j++){
-                board[i][j] = new Move(0);
+                board[i][j] = players[0];
             }
         }
     }
@@ -17,7 +18,7 @@ public class GameBoard{
         // HORIZONTAL WIN
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board.length-1; j++){
-                if(board[i][j].toString().equals(board[i][j+1].toString()) && !board[i][j].toString().equals(" ")){
+                if(board[i][j].equals(board[i][j+1]) && !board[i][j].equals(" ")){
                     cont = true;
                 }else{
                     cont = false;
@@ -35,7 +36,7 @@ public class GameBoard{
         // VERTICAL WIN
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board.length-1; j++){
-                if(board[j][i].toString().equals(board[j+1][i].toString()) && !board[j][i].toString().equals(" ")){
+                if(board[j][i].equals(board[j+1][i]) && !board[j][i].equals(" ")){
                     cont = true;
                 }else{
                     cont = false;
@@ -51,7 +52,7 @@ public class GameBoard{
 
         // DIAG WIN (\)
         for(int i = 0; i < board.length-1; i++){
-            if(board[i][i].toString().equals(board[i+1][i+1].toString()) && !board[i][i].toString().equals(" ")){
+            if(board[i][i].equals(board[i+1][i+1]) && !board[i][i].equals(" ")){
                 cont = true;
             }else{
                 cont = false;
@@ -65,7 +66,7 @@ public class GameBoard{
         // DIAG WIN (/)
         for(int i = board.length-1; i > 0; i--){
             int r = Math.abs(i-board.length+1);
-            if(board[r][i].toString().equals(board[r+1][i-1].toString()) && !board[r][i].toString().equals(" ")){
+            if(board[r][i].equals(board[r+1][i-1]) && !board[r][i].equals(" ")){
                 cont = true;
             }else{
                 cont = false;
@@ -95,14 +96,18 @@ public class GameBoard{
             System.out.print((c == 0 ? (char) (i+97) : (char) (i+65)) + " ");
 
             for(int j = 0; j < board[i].length; j++){
-                System.out.print("[" + board[i][j].toString() + "]");
+                System.out.print("[" + board[i][j] + "]");
             }
             System.out.println();
         }
         System.out.println();
     }
 
-    public void moveAt(int r, int c, int player) throws ArrayIndexOutOfBoundsException{
-        board[r][c] = new Move(player);
+    public void moveAt(int r, int c, int player) throws PlaceAlreadyTakenException{
+        if(board[r][c].equals(" ")){
+            board[r][c] = players[player];
+        }else{
+            throw new PlaceAlreadyTakenException("This place is already taken");
+        }
     }
 }

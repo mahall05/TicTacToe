@@ -17,6 +17,10 @@ public class Main {
                 System.out.println("Invalid input, try again");
             }catch(NumberFormatException e){
                 System.out.println("Please enter the row before the column (i.e. a2)");
+            }catch(PlaceAlreadyTakenException e){
+                System.out.println("This place is already taken, please choose another");
+            }catch(StringIndexOutOfBoundsException e){
+                System.out.println("Invalid input, try again");
             }
         }
 
@@ -24,7 +28,7 @@ public class Main {
         System.out.println("Player " + (Math.abs(player-1)+1) + " wins " + (board.detectWin()=='-'?"horizontally (-)":(board.detectWin()=='|'?"vertically (|)":(board.detectWin()=='\\'?"diagonally (\\)":(board.detectWin()=='/'?"diagonally (/)":"somehow...")))));
     }
 
-    private static void move(GameBoard board, int player) throws ArrayIndexOutOfBoundsException, NumberFormatException{
+    private static void move(GameBoard board, int player) throws PlaceAlreadyTakenException{
         System.out.print("Enter a space >> ");
         String input = getInput();
         int row = parseRow(input);
