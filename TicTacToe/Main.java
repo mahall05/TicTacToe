@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.zip.Adler32;
 
 public class Main {
     public static void main(String[] args){
@@ -7,7 +6,7 @@ public class Main {
         board.printBoard();
 
         int player = 0;
-        while(!board.detectWin()){
+        while(board.detectWin() == ' '){
             System.out.println("Player " + (player+1) + ":");
             board.printBoard();
             
@@ -22,7 +21,7 @@ public class Main {
         }
 
         board.printBoard();
-        System.out.println("Player " + (Math.abs(player-1)+1) + " wins!");
+        System.out.println("Player " + (Math.abs(player-1)+1) + " wins " + (board.detectWin()=='-'?"horizontally (-)":(board.detectWin()=='|'?"vertically (|)":(board.detectWin()=='\\'?"diagonally (\\)":(board.detectWin()=='/'?"diagonally (/)":"somehow...")))));
     }
 
     private static void move(GameBoard board, int player) throws ArrayIndexOutOfBoundsException, NumberFormatException{

@@ -11,7 +11,7 @@ public class GameBoard{
         }
     }
 
-    public boolean detectWin(){
+    public char detectWin(){
         boolean cont = false;
 
         // HORIZONTAL WIN
@@ -29,7 +29,7 @@ public class GameBoard{
         }
 
         if (cont)
-            return true;
+            return '-';
 
 
         // VERTICAL WIN
@@ -47,7 +47,7 @@ public class GameBoard{
         }
 
         if(cont)
-            return true;
+            return '|';
 
         // DIAG WIN (\)
         for(int i = 0; i < board.length-1; i++){
@@ -60,7 +60,7 @@ public class GameBoard{
         }
 
         if(cont)
-            return true;
+            return '\\';
 
         // DIAG WIN (/)
         for(int i = board.length-1; i > 0; i--){
@@ -74,9 +74,9 @@ public class GameBoard{
         }
 
         if(cont)
-            return true;
+            return '/';
         
-        return false;
+        return ' ';
     }
 
     // Lowercase letter ranges: 97-122
