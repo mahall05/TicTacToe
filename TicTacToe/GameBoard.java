@@ -14,20 +14,69 @@ public class GameBoard{
     public boolean detectWin(){
         boolean cont = false;
 
+        // HORIZONTAL WIN
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board.length-1; j++){
                 if(board[i][j].toString().equals(board[i][j+1].toString()) && !board[i][j].toString().equals(" ")){
                     cont = true;
+                }else{
+                    cont = false;
                 }
                 j = cont ? j : board.length + 100;
-                i = cont ? i : board.length + 100;
+            }
+
+            i = cont ? board.length + 100 : i;
+        }
+
+        if (cont)
+            return true;
+
+
+        // VERTICAL WIN
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board.length-1; j++){
+                if(board[j][i].toString().equals(board[j+1][i].toString()) && !board[j][i].toString().equals(" ")){
+                    cont = true;
+                }else{
+                    cont = false;
+                }
+                j = cont ? j : board.length + 100;
+            }
+
+            i = cont ? board.length + 100 : i;
+        }
+
+        if(cont)
+            return true;
+
+        // DIAG WIN (\)
+        for(int i = 0; i < board.length-1; i++){
+            if(board[i][i].toString().equals(board[i+1][i+1].toString()) && !board[i][i].toString().equals(" ")){
+                cont = true;
+            }else{
+                cont = false;
+                i = board.length+100;
             }
         }
-        if(cont){
+
+        if(cont)
             return true;
-        }else{
-            return false;
+
+        // DIAG WIN (/)
+        for(int i = board.length-1; i > 0; i--){
+            int r = Math.abs(i-board.length+1);
+            if(board[r][i].toString().equals(board[r+1][i-1].toString()) && !board[r][i].toString().equals(" ")){
+                cont = true;
+            }else{
+                cont = false;
+                i = -10;
+            }
         }
+
+        if(cont)
+            return true;
+        
+        return false;
     }
 
     // Lowercase letter ranges: 97-122
@@ -50,6 +99,7 @@ public class GameBoard{
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public void moveAt(int r, int c, int player) throws ArrayIndexOutOfBoundsException{

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.zip.Adler32;
 
 public class Main {
     public static void main(String[] args){
@@ -15,11 +16,17 @@ public class Main {
                 player = Math.abs(player-1);
             }catch(ArrayIndexOutOfBoundsException e){
                 System.out.println("Invalid input, try again");
+            }catch(NumberFormatException e){
+                System.out.println("Please enter the row before the column (i.e. a2)");
             }
         }
+
+        board.printBoard();
+        System.out.println("Player " + (Math.abs(player-1)+1) + " wins!");
     }
 
-    private static void move(GameBoard board, int player) throws ArrayIndexOutOfBoundsException{
+    private static void move(GameBoard board, int player) throws ArrayIndexOutOfBoundsException, NumberFormatException{
+        System.out.print("Enter a space >> ");
         String input = getInput();
         int row = parseRow(input);
         int column = Integer.parseInt(input.substring(1))-1;
@@ -30,7 +37,7 @@ public class Main {
     private static String getInput(){
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-        in.close();
+        //in.close();
         return input;
     }
 
