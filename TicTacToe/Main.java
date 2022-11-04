@@ -2,7 +2,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        GameBoard board = new GameBoard(3);
+        System.out.println("******************************");
+        System.out.println("Welcome to Tic-Tac-Toe!");
+        System.out.print("Choose gameboard size >> ");
+        int size = 0;
+        while(size == 0){
+            try{
+                size = Integer.parseInt(getInput());
+            }catch(NumberFormatException e){
+                System.out.println("Invalid entry, please enter a number only");
+            }
+        }
+
+        GameBoard board = new GameBoard(size);
         board.printBoard();
 
         int player = 0;
