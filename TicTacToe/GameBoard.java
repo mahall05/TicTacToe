@@ -1,5 +1,5 @@
 public class GameBoard{
-    private static String[] players = {" ", Color.RED+'X'+Color.RESET, Color.GREEN+'O'+Color.RESET};
+    public static String[] players = {" ", Color.RED+'X'+Color.RESET, Color.GREEN+'O'+Color.RESET};
     private String[][] board;
 
     public GameBoard(int size){
@@ -84,9 +84,12 @@ public class GameBoard{
     // Uppercase letter ranges: 65-90
 
     public void printBoard(){
-        System.out.print("  ");
+        System.out.print("\n  ");
         for(int i = 1; i <= board.length; i++){
-            System.out.print(" " + i + " ");
+            if((""+i).length() > 1)
+                System.out.print(i + " ");
+            else
+                System.out.print(" " + i + " ");
         }
         System.out.println();
 
